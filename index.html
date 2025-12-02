@@ -15,16 +15,17 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* max-width: 1500px; */
         }
         
         body {
             /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
             font-family: 'Roboto Slab', sans-serif;
             background: linear-gradient(180deg, #513624 100%, #513624 100%);
-            padding: 20px;
-            min-height: 100vh;
+            padding: 0px;
+            max-height: 100vh;
         }
-        
+
         .menu {
             font-family: 'Libre Baskerville', 'Roboto Slab', 'Roboto', sans-serif;
             color: #a5a5a5;
@@ -40,7 +41,8 @@
             font-family: 'Libre Baskerville', 'Roboto Slab', 'Roboto', sans-serif;
             text-align: center;
             color: #098ca4;
-            margin-bottom: 0px;
+            width: 100%;
+            margin-bottom: 60px;
             margin-left: 0px;
             margin-right: 0px;
             margin-top: 0px;
@@ -263,58 +265,185 @@
             text-decoration: none; 
         }
 
-        @media (max-width: 1500px) {
+        /* @media (max-width: 1500px) {
             .dashboard {
                 grid-template-columns: 1fr;
             }
             .dashboardOne {
                 grid-template-columns: 1fr;
             }
+        } */
+
+        .nav-container {
+            max-width: 2500px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            color: #a5a5a5;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-left: 450px;
+            padding-right: 0px;
         }
 
+        .nav-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            list-style: none;
+            gap: 0;
+            padding: 15px 0;
+            /* border-bottom: 1px solid #3d3d3d; */
+        }
+
+        .nav-row:last-child {
+            border-bottom: none;
+        }
+
+        .nav-row li {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-row li a {
+            color: #a1a1a1;
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .nav-row li a:hover {
+            color: #fff;
+        }
+
+        .separator {
+            color: #666;
+            margin: 0 20px;
+            font-weight: 300;
+            font-size: 13px;
+        }
+
+        .search-icon {
+            color: #b8b8b8;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s;
+            margin-left: auto;
+        }
+
+        .search-icon:hover {
+            color: #fff;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #b8b8b8;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 8px;
+            margin-left: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .separator {
+                margin: 0 15px;
+            }
+
+            .nav-row li a {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-row {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0;
+                border: none;
+            }
+
+            .nav-row.active {
+                max-height: 800px;
+                padding: 15px 0;
+            }
+
+            .nav-row li {
+                width: 100%;
+                padding: 12px 0;
+                border-bottom: 1px solid #3d3d3d;
+            }
+
+            .nav-row li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-row li a {
+                font-size: 14px;
+            }
+
+            .separator {
+                display: none;
+            }
+
+            .search-icon {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="./SoncniBlog-GitHub.png" style="height:150px; margin:0; display:block;">
+        <!-- <div style="padding-right: 0px; padding-top: 0px; ; padding-bottom: 0px; margin-bottom: 0px;"> -->
+        <div>
+        <img src="./SoncniBlog-GitHub.png" style="height: 140px; width: auto;  margin-bottom: 0px; display: block;">
+        </div>
+        <nav class="nav-container">
+            <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            
+            <ul class="nav-row" id="navRow1">
+                <li><a href="https://soncniblog.wordpress.com/">NA ZAČETEK</a></li>
+                <li><span class="separator">/</span></li>
+                <li><a href="https://soncniblog.com/o-blogu/">O BLOGU</a></li>
+                <li><span class="separator">/</span></li>
+                <li><a href="https://soncniblog.com/zgodbe-iz-vesolja/">ZGODBE IZ VESOLJA</a></li>
+                <li><span class="separator">/</span></li>
+                <li><a href="https://soncniblog.com/novice-iz-vesolja/">NOVICE IZ VESOLJA</a></li>
+                <li><span class="separator">/</span></li>
+                <li><a href="https://soncniblog.com/osnove-vesoljskega-vremena/">ABC VESOLJSKEGA VREMENA</a></li>
+                <li><span class="separator">/</span></li>
+                <li><a href="https://soncniblog.com/kaj-je-kaj/">NEKATERI POJMI</a></li>
+            </ul>
+
+            <ul class="nav-row" id="navRow2">
+                <li><a href="https://soncniblog.com/astronomski-koledar/">ASTRONOMSKI KOLEDAR</a></li>
+                <li><span class="separator">/</span></li>
+                <li><a href="https://primoz-igeof.github.io/SoncniBlog/"> TRENUTNO STANJE NA SONCU IN VESOLJSKO VREME</a></li>
+                <li><span class="separator">/</span></li>
+                <li><a href="https://soncniblog.com/zanimive-povezave/">ZANIMIVE POVEZAVE</a></li>
+                <li><span class="separator">/</span></li>
+                <li><a href="https://soncniblog.com/imate-vprasanje/">IMATE VPRAŠANJE?</a></li>
+                <li><span class="search-icon">🔍</span></li>
+            </ul>
+        </nav>
     </div>
-    <div class="menu">
-        <br>
-        <a href="https://soncniblog.wordpress.com/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>NA ZAČETEK</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span>
-        <a href="https://soncniblog.com/o-blogu/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>O BLOGU</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span>
-        <a href="https://soncniblog.com/zgodbe-iz-vesolja/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>ZGODBE IZ VESOLJA</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span>
-        <a href="https://soncniblog.com/novice-iz-vesolja/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>NOVICE IZ VESOLJA</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span>
-        <a href="https://soncniblog.com/osnove-vesoljskega-vremena/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>ABC VESOLJSKEGA VREMENA</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span>
-        <a href="https://soncniblog.com/kaj-je-kaj/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>RAZLAGE NEKATERIH POJMOV</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span><br><br><br>
-        <a href="https://soncniblog.com/astronomski-koledar/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>ASTRONOMSKI KOLEDAR</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span>
-        <a href=https://"primoz-igeof.github.io/SoncniBlog/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>TRENUTNO STANJE NA SONCU IN VESOLJSKO VREME</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span>
-        <a href="https://soncniblog.com/zanimive-povezave/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>ZANIMIVE POVEZAVE</b></span></a>
-        <span style="display: inline-block; width: 30px;"></span>/<span style="display: inline-block; width: 25px;"></span>
-        <a href="https://soncniblog.com/imate-vprasanje/" class="custom-link" target="_blank" onmouseover="this.querySelector('span').style.color='white'" 
-   onmouseout="this.querySelector('span').style.color='#a5a5a5'"><span style="font-family: 'Roboto slab', serif; font-size: 14px; color: #a5a5a5"><b>IMAŠ VPRAŠANJE?</b></span></a>
-    </div>
-        <!-- <p style="font-family: 'Libre Baskerville', Roboto Slab, serif; position: relative; left: -30.5%; top: 26%; font-size: 14px;"><a href="https://blogsolar.space/" class="custom-link" target="_blank"><b>INICIO</b></a></p>
-        <p style="font-family: 'Libre Baskerville', Baskerville, serif; position: relative; left: -27.8%; top: 9%; font-size: 14px;"><b>/</b></p>
-        <p style="font-family: 'Libre Baskerville', Baskerville, serif; position: relative; left: -23.1%; top: -8%; font-size: 14px;"><a href="https://blogsolar.space/sobre-este-blog/" class="custom-link" target="_blank"><b>SOBRE ESTE BLOG</b></a></p> -->
-    </div>
-    <dov class="dashboardZero">
+    <div class="dashboardZero">
         <h1 style="text-align: center;">Napoved vesoljskega vremena</h1><br><br><br>
         <div class="dashboardOne">
             <div class="card">
@@ -384,7 +513,7 @@
             </div>
         <!-- GOES X-Ray Flux -->
             <div class="card">
-                <h2>Jakost rentgenskega sevanja GOES (6 ur)</h2>
+                <h2>Jakost rentgenske svetlobe GOES (6 ur)</h2>
                 <div class="controls">
                     <button id="btn6hour" class="active" onclick="setTimeRange('6hour')">6 ur</button>
                     <button id="btn1day" onclick="setTimeRange('1day')">1 dan</button>
@@ -393,7 +522,7 @@
                     <button id="refreshBtn" onclick="fetchData()">↻ Osveži</button>
                 </div>
                 <canvas id="xrayChart"></canvas>
-                <p class="status">Nalaganje podatkov o rentgenskem sevanju...</p>
+                <p class="status">Nalaganje podatko rentgenske svetlobe...</p>
                 <p>Jakost Sončevih bliščev: 1-8 Å (rdeča barva) in 0.5-4 Å (modra). Logaritemska lestvica z razredi izbruhov: A, B, C, M, X.</p>
                 <p><a href="https://www.swpc.noaa.gov/products/goes-x-ray-flux" target="_blank">Dostop do vseh podatkov →</a></p>
             </div>
