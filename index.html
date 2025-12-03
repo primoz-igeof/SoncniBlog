@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     <title>Space Weather Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-adapter-moment/1.0.1/chartjs-adapter-moment.min.js"></script>
 
     <style>
         * {
@@ -350,6 +352,13 @@
             margin-left: auto;
         }
 
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #d32f2f;
+            font-size: 1.1em;
+        }
+
         @media (max-width: 1024px) {
             .separator {
                 margin: 0 15px;
@@ -418,7 +427,7 @@
             <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
             
             <ul class="nav-row" id="navRow1">
-                <li><a href="https://soncniblog.wordpress.com/">NA ZAČETEK</a></li>
+                <li><a href="https://soncniblog.com/">NA ZAČETEK</a></li>
                 <li><span class="separator">/</span></li>
                 <li><a href="https://soncniblog.com/o-blogu/">O BLOGU</a></li>
                 <li><span class="separator">/</span></li>
@@ -449,33 +458,42 @@
             <div class="card">
                 <h2><center>Trenutne Sončeve pege</center></h2>
                 <a href="https://soho.nascom.nasa.gov/data/synoptic/sunspots_earth/mdi_sunspots_1024.jpg" target="_blank"> <img src="https://soho.nascom.nasa.gov/data/synoptic/sunspots_earth/mdi_sunspots_1024.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SOHO/MDI.</p>
             </div>
             <div class="vertical-separator"></div>
         </div>
         <div class="dashboardThree">
             <div class="card">
                 <a href="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0193.jpg" target="_blank"> <img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0193.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SDO/AIA 193 Å.</p>
             </div>
             <div class="card">
                 <a href="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg" target="_blank"> <img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SDO/AIA 304 Å.</p>
             </div>
             <div class="card">
                 <a href="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg" target="_blank"> <img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SDO/AIA 171 Å.</p>
             </div>
             <div class="card">
                 <a href="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0211.jpg" target="_blank"> <img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0211.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SDO/AIA 211 Å.</p>
             </div>
             <div class="card">
                 <a href="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0131.jpg" target="_blank"> <img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0131.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SDO/AIA 131 Å.</p>
             </div>
             <div class="card">
                 <a href="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIB.jpg" target="_blank"> <img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIB.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SDO/HMI.</p>
             </div>
             <div class="card">
                 <a href="https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg" target="_blank"> <img src="https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SOHO/LASCO C2.</p>
             </div>
             <div class="card">
                 <a href="https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg" target="_blank"> <img src="https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg" alt="Sunspot image" class="center"></a>
+                <p style="text-align: center;">Vir: SOHO/LASCO C3.</p>
             </div>
         </div>
         <div class="dashboard">
@@ -513,7 +531,7 @@
             </div>
         <!-- GOES X-Ray Flux -->
             <div class="card">
-                <h2>Jakost rentgenske svetlobe GOES (6 ur)</h2>
+                <h2>Jakost rentgenskega sevanja GOES (6 ur)</h2>
                 <div class="controls">
                     <button id="btn6hour" class="active" onclick="setTimeRange('6hour')">6 ur</button>
                     <button id="btn1day" onclick="setTimeRange('1day')">1 dan</button>
@@ -522,7 +540,7 @@
                     <button id="refreshBtn" onclick="fetchData()">↻ Osveži</button>
                 </div>
                 <canvas id="xrayChart"></canvas>
-                <p class="status">Nalaganje podatko rentgenske svetlobe...</p>
+                <p class="status">Nalaganje podatkov rentgenskega sevanja...</p>
                 <p>Jakost Sončevih bliščev: 1-8 Å (rdeča barva) in 0.5-4 Å (modra). Logaritemska lestvica z razredi izbruhov: A, B, C, M, X.</p>
                 <p><a href="https://www.swpc.noaa.gov/products/goes-x-ray-flux" target="_blank">Dostop do vseh podatkov →</a></p>
             </div>
@@ -554,7 +572,51 @@
                 <p>Število opaženih peg (črna barva) ter povprečja (vijolična) za Sončev cikel 25. Posodobljeno mesečno z podatki SILSO.</p>
                 <p><a href="https://www.swpc.noaa.gov/products/solar-cycle-progression" target="_blank">Dostop do vseh podatkov →</a></p>
             </div>
-        </div>            
+        <div class="dashboardTwo">
+        <!-- Solar cycle progression -->
+                <!-- <p class="subtitle">Magnetno polje</p> -->
+                <!-- <canvas id="solarWindBChart"></canvas> -->
+            <div class="card">
+                <!-- <canvas id="solarWindChart"></canvas> -->
+                <h2>Sončev veter v živo</h2>
+                <div class="controls">
+                     <button id="btn6hour" class="active" onclick="setTimeRange('6hour')">6 ur</button>
+
+                    <button id="btn2uri" onclick="loadData('2-hour')" class="active">2 Uri</button>
+                    <button id="btn6ur" onclick="loadData('6-hour')">6 Ur</button>
+                    <button id="btn1dan" onclick="loadData('1-day')">1 Dan</button>
+                    <button id="btn3dnevi" onclick="loadData('3-day')">3 Dnevi</button>
+                    <button id="btn7dni" onclick="loadData('7-day')">7 Dni</button>
+                </div>
+
+                <div id="loading" class="loading">Loading solar wind data...</div>
+                <div id="error" class="error" style="display: none;"></div>
+
+               <div id="charts" style="display: none; width: 1150px;">
+                    <div class="chart-container">
+                        <div class="chart-title">Magnetno polje (nT)</div>
+                        <canvas id="magChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-title">Hitrost (km/s)</div>
+                        <canvas id="speedChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-title">Gostota protonov (delcev/cm³)</div>
+                        <canvas id="densityChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-title">Temperatura (K)</div>
+                        <canvas id="tempChart"></canvas>
+                    </div>
+                </div>
+        
+                <div id="lastUpdate" class="last-updated"></div>
+            </div>
+        </div>
     </div>
     
     <div class="refresh-info">
@@ -944,6 +1006,263 @@
             
             updateTimestamp();
         }, 300000); // 5 minutes
+
+        let charts = {};
+        let currentPeriod = '2-hour';
+
+        async function loadData(period) {
+            currentPeriod = period;
+            
+            // Update active button
+            document.querySelectorAll('.controls button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                document.querySelector('.controls button').classList.add('active');
+            }
+            
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('charts').style.display = 'none';
+            
+            try {
+                const [magData, plasmaData] = await Promise.all([
+                    fetch(`https://services.swpc.noaa.gov/products/solar-wind/mag-${period}.json`).then(r => r.json()),
+                    fetch(`https://services.swpc.noaa.gov/products/solar-wind/plasma-${period}.json`).then(r => r.json())
+                ]);
+                
+                displayCharts(magData, plasmaData);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('charts').style.display = 'block';
+                
+                const now = new Date().toUTCString();
+                document.getElementById('lastUpdate').textContent = `Zadnja posodobitev: ${now}`;
+                
+            } catch (error) {
+                console.error('Error details:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').textContent = `Napaka pri nalaganju podatkov: ${error.message}. Prosimo, preverite svojo internetno povezavo in poskusite znova.`;
+            }
+        }
+
+        function displayCharts(magData, plasmaData) {
+            // Destroy existing charts
+            Object.values(charts).forEach(chart => chart.destroy());
+            charts = {};
+            
+            // Process magnetometer data (skip header row)
+            const magTimeLabels = [];
+            const btData = [];
+            const bzData = [];
+            const byData = [];
+            const bxData = [];
+            
+            for (let i = 1; i < magData.length; i++) {
+                const row = magData[i];
+                const time = new Date(row[0]);
+                magTimeLabels.push(time);
+                btData.push(parseFloat(row[6]) || null);
+                bzData.push(parseFloat(row[3]) || null);
+                byData.push(parseFloat(row[2]) || null);
+                bxData.push(parseFloat(row[1]) || null);
+            }
+            
+            // Process plasma data (skip header row)
+            const plasmaTimeLabels = [];
+            const speedData = [];
+            const densityData = [];
+            const tempData = [];
+            
+            for (let i = 1; i < plasmaData.length; i++) {
+                const row = plasmaData[i];
+                const time = new Date(row[0]);
+                plasmaTimeLabels.push(time);
+                speedData.push(parseFloat(row[1]) || null);
+                densityData.push(parseFloat(row[2]) || null);
+                tempData.push(parseFloat(row[3]) || null);
+            }
+            
+            // Create magnetometer chart
+            const magCtx = document.getElementById('magChart').getContext('2d');
+            charts.mag = new Chart(magCtx, {
+                type: 'line',
+                data: {
+                    labels: magTimeLabels,
+                    datasets: [
+                        {
+                            label: 'Bt (Total)',
+                            data: btData,
+                            borderColor: '#f44336',
+                            backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Bz',
+                            data: bzData,
+                            borderColor: '#2196f3',
+                            backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'By',
+                            data: byData,
+                            borderColor: '#4caf50',
+                            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Bx',
+                            data: bxData,
+                            borderColor: '#ff9800',
+                            backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: getChartOptions('nT')
+            });
+            
+            // Create speed chart
+            const speedCtx = document.getElementById('speedChart').getContext('2d');
+            charts.speed = new Chart(speedCtx, {
+                type: 'line',
+                data: {
+                    labels: plasmaTimeLabels,
+                    datasets: [{
+                        label: 'Hitrost',
+                        data: speedData,
+                        borderColor: '#9c27b0',
+                        backgroundColor: 'rgba(156, 39, 176, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: getChartOptions('km/s')
+            });
+            
+            // Create density chart
+            const densityCtx = document.getElementById('densityChart').getContext('2d');
+            charts.density = new Chart(densityCtx, {
+                type: 'line',
+                data: {
+                    labels: plasmaTimeLabels,
+                    datasets: [{
+                        label: 'Gostota',
+                        data: densityData,
+                        borderColor: '#009688',
+                        backgroundColor: 'rgba(0, 150, 136, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: getChartOptions('p/cm³')
+            });
+            
+            // Create temperature chart
+            const tempCtx = document.getElementById('tempChart').getContext('2d');
+            charts.temp = new Chart(tempCtx, {
+                type: 'line',
+                data: {
+                    labels: plasmaTimeLabels,
+                    datasets: [{
+                        label: 'Temperatura',
+                        data: tempData,
+                        borderColor: '#ff5722',
+                        backgroundColor: 'rgba(255, 87, 34, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: getChartOptions('K')
+            });
+        }
+
+        function getChartOptions(unit) {
+            return {
+                responsive: true,
+                maintainAspectRatio: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                const date = new Date(context[0].parsed.x);
+                                return date.toUTCString();
+                            },
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y.toFixed(2) + ' ' + unit;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                hour: 'HH:mm',
+                                day: 'MMM dd'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Datum in ura (UTC)'
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: unit
+                        },
+                        beginAtZero: false
+                    }
+                }
+            };
+        }
+
+        // Load initial data
+        loadData('2-hour');
+        
+        // Auto-refresh every 5 minutes
+        setInterval(() => {
+            loadData(currentPeriod);
+        }, 300000);
     </script>
 </body>
 </html>
